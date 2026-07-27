@@ -1,158 +1,174 @@
-# GitOps Lab – Helm & Argo CD
+# GitOps Lab – GitHub, Google Cloud (GKE), Helm & Argo CD
 
-## Übersicht
+## Ziel
 
-Dieses Repository dient als **Hands-on-Labor** zum Erlernen von **GitOps**, **Helm** und **Argo CD** in Kubernetes.
+Dieses Repository begleitet den Aufbau einer vollständigen GitOps-Plattform auf Google Kubernetes Engine (GKE).
 
-Die Übungen sind in einzelne **Proof of Concepts (PoCs)** unterteilt. Jeder PoC behandelt ein eigenständiges Thema und baut schrittweise auf dem Wissen der vorherigen Übungen auf.
+Die Übungen führen Schritt für Schritt durch den kompletten Workflow – von der Bereitstellung eines Kubernetes-Clusters bis zum automatisierten Deployment einer Anwendung mit Helm und Argo CD.
 
-**Ziele des Labs**
+## Architektur
 
-* GitOps-Prinzipien verstehen
-* Helm Charts erstellen und anpassen
-* Anwendungen mit Argo CD deployen
-* Änderungen über Git automatisiert in Kubernetes ausrollen
-* Best Practices für Struktur, Versionierung und Deployment kennenlernen
-
----
+```text
+Developer
+    │
+    ▼
+GitHub Repository
+    │
+    ▼
+Helm Chart
+    │
+    ▼
+Argo CD
+    │
+    ▼
+Google Kubernetes Engine (GKE)
+```
 
 ## Projektstruktur
 
 ```text
 gitops-lab/
-├── poc-01/
-├── poc-02/
-├── poc-03/
-├── poc-04/
-├── poc-05/
+│
+├── poc-01-github/
+├── poc-02-gcloud/
+├── poc-03-gke/
+├── poc-04-helm/
+├── poc-05-argocd/
+├── poc-06-gitops/
+├── poc-07-environments/
+├── poc-08-advanced/
 └── README.md
 ```
 
-Jeder Ordner enthält:
+---
 
-```text
-poc-0X/
-├── README.md
-├── manifests/
-├── helm/
-└── solutions/ (optional)
-```
+## PoC 01 – GitHub Repository
 
-Das jeweilige `README.md` beschreibt die Aufgaben, Ziele und den erwarteten Endzustand.
+### Lernziele
+
+* Repository erstellen
+* Branches anlegen
+* Pull Requests verwenden
+* Repository strukturieren
+
+### Aufgaben
+
+* GitHub Repository erstellen
+* README anlegen
+* Feature Branch erstellen
+* Pull Request öffnen
+* Merge durchführen
 
 ---
 
-# PoC 01 – Erste Kubernetes-Anwendung
+## PoC 02 – Google Cloud
 
-## Lernziele
+### Lernziele
 
-* Kubernetes kennenlernen
-* Deployment und Service erstellen
-* Anwendung im Cluster bereitstellen
+* Google Cloud SDK installieren
+* Projekt erstellen
+* Authentifizierung durchführen
 
-### Beispielaufgaben
+### Aufgaben
 
-* Deployment erstellen
-* Service anlegen
-* Container-Image ändern
-* Anzahl der Replikas erhöhen
-* Deployment aktualisieren
+* `gcloud init`
+* Projekt auswählen
+* Billing aktivieren
+* Kubernetes API aktivieren
+* Container Registry oder Artifact Registry konfigurieren
 
 ---
 
-# PoC 02 – Einführung in Helm
+## PoC 03 – Google Kubernetes Engine (GKE)
 
-## Lernziele
+### Lernziele
+
+* Kubernetes Cluster bereitstellen
+
+### Aufgaben
+
+* GKE Cluster erstellen
+* `kubectl` konfigurieren
+* Namespace erstellen
+* Test-Pod deployen
+* Cluster prüfen
+
+---
+
+## PoC 04 – Helm
+
+### Lernziele
 
 * Helm installieren
-* Erstes Helm Chart erstellen
-* Werte über `values.yaml` konfigurieren
+* Helm Chart erstellen
 
-### Beispielaufgaben
+### Aufgaben
 
 * Helm Chart erzeugen
-* Deployment templatisieren
-* Image-Tag konfigurierbar machen
-* Replica-Anzahl parametrisieren
-* Chart installieren und aktualisieren
+* Werte parametrisieren
+* Chart installieren
+* Upgrade durchführen
+* Rollback testen
 
 ---
 
-# PoC 03 – GitOps mit Argo CD
+## PoC 05 – Argo CD
 
-## Lernziele
+### Lernziele
 
 * Argo CD installieren
-* Git Repository anbinden
-* Erstes GitOps Deployment durchführen
+* GitHub anbinden
 
-### Beispielaufgaben
+### Aufgaben
 
-* Application anlegen
-* Repository verbinden
-* Synchronisation ausführen
-* Änderungen über Git deployen
+* Argo CD deployen
+* GitHub Repository verbinden
+* Erste Application erstellen
+* Synchronisieren
 * Auto Sync aktivieren
 
 ---
 
-# PoC 04 – Helm und Argo CD kombinieren
+## PoC 06 – GitOps
 
-## Lernziele
+### Lernziele
 
-* Helm Charts direkt mit Argo CD deployen
-* Unterschiedliche Values-Dateien verwenden
+* Vollständigen GitOps-Workflow verstehen
 
-### Beispielaufgaben
+### Aufgaben
 
-* Helm Repository konfigurieren
-* `values-dev.yaml` erstellen
-* `values-prod.yaml` erstellen
-* Deployment über Argo CD durchführen
-* Unterschiede zwischen den Umgebungen testen
-
----
-
-# PoC 05 – GitOps Best Practices
-
-## Lernziele
-
-* Repository-Struktur verbessern
-* Mehrere Anwendungen verwalten
-* GitOps-Workflows verstehen
-
-### Beispielaufgaben
-
-* App-of-Apps Pattern verwenden
-* Mehrere Anwendungen deployen
-* Namespaces trennen
-* Git Branching ausprobieren
-* Rollback durchführen
+* Image-Version ändern
+* `values.yaml` anpassen
+* Commit erstellen
+* Push nach GitHub
+* Deployment durch Argo CD beobachten
 
 ---
 
-# Mögliche Erweiterungen
+## PoC 07 – Mehrere Umgebungen
 
-Weitere PoCs können beispielsweise folgende Themen behandeln:
+### Lernziele
 
-* **PoC 06** – ConfigMaps & Secrets
-* **PoC 07** – Ingress Controller
-* **PoC 08** – Kustomize vs. Helm
-* **PoC 09** – Multi-Environment Deployments
-* **PoC 10** – CI/CD mit GitHub Actions oder GitLab CI
-* **PoC 11** – Argo CD Image Updater
-* **PoC 12** – Progressive Delivery mit Argo Rollouts
+* Dev-, Test- und Prod-Umgebungen verwalten
+
+### Aufgaben
+
+* Mehrere Values-Dateien erstellen
+* Unterschiedliche Replica-Anzahlen konfigurieren
+* Separate Namespaces verwenden
+* Anwendungen getrennt deployen
 
 ---
 
-## Zielgruppe
+## PoC 08 – Erweiterungen
 
-Dieses Repository richtet sich an:
+### Beispiele
 
-* DevOps Engineers
-* Kubernetes-Einsteiger
-* Platform Engineers
-* Softwareentwickler mit Interesse an GitOps
-* Teilnehmer von Workshops und Schulungen
-
-Jeder PoC kann unabhängig bearbeitet werden. Für ein optimales Lernerlebnis empfiehlt sich jedoch die Reihenfolge der Ordner (`poc-01` bis `poc-XX`), da die Übungen aufeinander aufbauen.
+* App-of-Apps Pattern
+* Argo CD Image Updater
+* GitHub Actions
+* Artifact Registry
+* Monitoring
+* Ingress
+* TLS
+* Horizontal Pod Autoscaler (HPA)

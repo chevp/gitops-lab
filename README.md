@@ -29,7 +29,7 @@ Google Kubernetes Engine (GKE)
 ```text
 gitops-lab/
 │
-├── poc-01-github/
+├── poc-01-spring-ai/            # Spring-Boot-4/Spring-AI-Chat-App
 ├── poc-02-gcloud/
 ├── poc-03-gke/
 ├── poc-04-helm/
@@ -42,22 +42,35 @@ gitops-lab/
 
 ---
 
-## PoC 01 – GitHub Repository
+## PoC 01 – GitHub Repository & Beispiel-Anwendung
+
+Ursprünglich die Einstiegsübung zum GitHub-Workflow. Der Ordner `poc-01/`
+enthält inzwischen zusätzlich eine lauffähige **Beispiel-Anwendung**, an der die
+späteren PoCs (Container-Build, Helm, Argo CD, GitOps) deployt werden können.
 
 ### Lernziele
 
-* Repository erstellen
-* Branches anlegen
-* Pull Requests verwenden
+* Repository erstellen, Branches anlegen, Pull Requests verwenden
 * Repository strukturieren
+* Eine deploybare Anwendung als Grundlage für die GitOps-Pipeline bereitstellen
 
 ### Aufgaben
 
-* GitHub Repository erstellen
+* GitHub Repository erstellen und strukturieren
 * README anlegen
-* Feature Branch erstellen
-* Pull Request öffnen
-* Merge durchführen
+* Feature Branch erstellen, Pull Request öffnen, Merge durchführen
+
+### Beispiel-Anwendung (`poc-01/`)
+
+Ein provider-neutraler Chat als **Spring Boot 4 + Spring AI** Backend (OpenAI)
+mit einem Plain-JS-Frontend. Dient als Deploy-Ziel der folgenden PoCs.
+
+* **Stack:** Spring Boot 4.0, Spring AI 2.0, Java 21, Spring Data JPA + H2,
+  Frontend ohne Framework (kein Build-Schritt)
+* **Features:** Streaming-Chat (NDJSON), Model-Picker, „New chat", Token-Limits
+  (Input 100 / Output 1000 pro Request, 2000 pro Tag)
+* **Details & Start:** siehe [`poc-01-spring-ai/README.md`](poc-01-spring-ai/README.md)
+  (`export OPENAI_API_KEY=… && ./mvnw spring-boot:run` → <http://localhost:8080/>)
 
 ---
 

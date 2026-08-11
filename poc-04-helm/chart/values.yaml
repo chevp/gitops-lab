@@ -1,0 +1,58 @@
+# Default-Werte für das poc-01-spring-ai-Chart.
+# Von den Skripten via --set überschrieben (Image, Tag, OpenAI-Key).
+
+replicaCount: 1
+
+image:
+  # Vollständiges Registry-Repo, z. B.
+  # europe-west6-docker.pkg.dev/<PROJECT_ID>/gitops-lab-docker/poc-01-spring-ai
+  repository: poc-01-spring-ai
+  tag: "0.1.0"
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+
+serviceAccount:
+  create: true
+  name: ""
+
+service:
+  type: ClusterIP
+  port: 80          # Service-Port
+  targetPort: 8080  # Container-Port (Spring Boot)
+
+# OpenAI-Zugangsdaten. apiKey wird in ein Secret geschrieben und als
+# Umgebungsvariable OPENAI_API_KEY in den Container gereicht.
+# Bestehendes Secret alternativ über existingSecret referenzieren.
+openai:
+  apiKey: ""
+  existingSecret: ""
+  secretKey: "OPENAI_API_KEY"
+
+# App-Konfiguration → landet in einer ConfigMap und wird als Env gemappt
+# (Spring-Boot-Relaxed-Binding: APP_CHAT_MAX_TOKENS → app.chat.max-tokens).
+config:
+  SERVER_PORT: "8080"
+  APP_CHAT_MAX_TOKENS: "100"
+  APP_CHAT_MAX_INPUT_TOKENS: "100"
+  APP_CHAT_MAX_TOKENS_PER_DAY: "1000"
+
+resources:
+  requests:
+    cpu: "250m"
+    memory: "512Mi"
+  limits:
+    cpu: "1"
+    memory: "1Gi"
+
+# Probes auf die statische Index-Seite (App hat kein Actuator im PoC).
+probes:
+  enabled: true
+  path: "/"
+  initialDelaySeconds: 30
+  periodSeconds: 10
+
+podAnnotations: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}

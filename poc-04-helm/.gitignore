@@ -1,0 +1,6 @@
+# eigene, nicht eingecheckte Konfiguration
+config.local.env
+
+# Helm-Artefakte
+*.tgz
+charts/

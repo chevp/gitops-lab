@@ -1,0 +1,8 @@
+apiVersion: v2
+name: poc-01-spring-ai
+description: Helm-Chart für die Spring-Boot-4/Spring-AI-Chat-App (PoC 01)
+type: application
+# Chart-Version (SemVer des Charts selbst)
+version: 0.1.0
+# Version der ausgelieferten App (Default; per --set image.tag überschreibbar)
+appVersion: "0.1.0"

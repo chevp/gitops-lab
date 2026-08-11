@@ -1,0 +1,11 @@
+✔ Release {{ .Release.Name }} in Namespace {{ .Release.Namespace }} deployt.
+
+Image:    {{ .Values.image.repository }}:{{ .Values.image.tag }}
+Replicas: {{ .Values.replicaCount }}
+
+Status prüfen:
+  kubectl get pods -n {{ .Release.Namespace }} -l app.kubernetes.io/instance={{ .Release.Name }}
+
+App lokal öffnen (Port-Forward):
+  kubectl port-forward -n {{ .Release.Namespace }} svc/{{ include "app.fullname" . }} 8080:{{ .Values.service.port }}
+  → http://localhost:8080/

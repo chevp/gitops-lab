@@ -1,6 +1,11 @@
 spring:
   application:
     name: poc-01-chat
+  # Load key/value pairs from the local .env file (properties format).
+  # optional: -> app still starts if .env is absent (e.g. in CI / prod where
+  # OPENAI_API_KEY comes from the real environment instead).
+  config:
+    import: optional:file:.env[.properties]
   ai:
     openai:
       api-key: ${OPENAI_API_KEY}

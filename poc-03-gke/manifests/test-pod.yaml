@@ -1,0 +1,20 @@
+# Minimaler Test-Pod, um den Cluster zu prüfen (kein App-Deploy).
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hello-test
+  labels:
+    app: hello-test
+spec:
+  containers:
+    - name: hello
+      image: nginxinc/nginx-unprivileged:stable
+      ports:
+        - containerPort: 8080
+      resources:
+        requests:
+          cpu: "50m"
+          memory: "64Mi"
+        limits:
+          cpu: "100m"
+          memory: "128Mi"

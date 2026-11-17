@@ -1,0 +1,5 @@
+# eigene, nicht eingecheckte Konfiguration
+config.local.env
+
+# gerenderte Manifeste
+*.rendered.yaml

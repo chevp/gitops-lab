@@ -1,0 +1,36 @@
+# Argo-CD-Application-Vorlage. Platzhalter (${...}) werden von
+# 05-create-app.sh via envsubst aus config.env gefüllt.
+#
+# WICHTIG: Auto-Sync ist hier bewusst NICHT aktiviert. Die erste Synchronisation
+# erfolgt manuell (06-sync.sh), Auto-Sync wird danach separat eingeschaltet
+# (07-enable-autosync.sh) – so bleibt der GitOps-Ablauf gut nachvollziehbar.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ${APP_NAME}
+  namespace: ${ARGOCD_NAMESPACE}
+  # Aufräumen der verwalteten Ressourcen beim Löschen der Application.
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: ${ARGOCD_PROJECT}
+  source:
+    repoURL: ${GIT_REPO_URL}
+    targetRevision: ${GIT_TARGET_REVISION}
+    path: ${CHART_PATH}
+    helm:
+      # Image + Secret-Referenz per Parameter – der OpenAI-Key liegt NICHT im Git,
+      # sondern in einem separat angelegten Secret (04-app-secret.sh).
+      parameters:
+        - name: image.repository
+          value: ${IMAGE_REPO}
+        - name: image.tag
+          value: "${IMAGE_TAG}"
+        - name: openai.existingSecret
+          value: ${OPENAI_SECRET_NAME}
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: ${NAMESPACE}
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true

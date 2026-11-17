@@ -127,6 +127,10 @@ mit einem Plain-JS-Frontend. Dient als Deploy-Ziel der folgenden PoCs.
 
 ## PoC 05 – Argo CD
 
+Baut auf PoC 04 auf: dasselbe Helm-Chart wird per **GitOps** aus dem Repository
+synchronisiert statt manuell installiert. Details & Skripte:
+[`poc-05-argocd/README.md`](poc-05-argocd/README.md).
+
 ### Lernziele
 
 * Argo CD installieren
